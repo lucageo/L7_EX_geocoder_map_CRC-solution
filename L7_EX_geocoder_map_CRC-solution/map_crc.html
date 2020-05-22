@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Demo</title>
+  
+  <script type="text/javascript" src="libraries/jquery-1.7.1.min.js"></script>
+  <script type="text/javascript" src="libraries/ol.js"></script>
+  <script type="text/javascript" src="js/map.js"></script>
+  <script type="text/javascript" src="js/visualizer.js"></script>
+  <script type="text/javascript" src="js/dataProvider.js"></script>  
+  
+  
+  <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body onload="init();">
+    <div class="pagewrapper">
+      <div id="header"></div>
+      <div id="map"></div>
+      <div id="controls">
+        <h1>Controls</h1>
+        <div ng-app = "geocoder" ng-controller = "geocodingController">
+           Enter address: <input type = "text" ng-model = "location.address"><button class="btn btn-default" ng-click="location.geocode()">Geocode</button>
+  		 <p >This address was geocoded to: <div id="geo_location"></div></p>
+        </div>
+      </div>
+    </div>
+	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+	<script src = "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script>
+       var mainApp = angular.module("geocoder", []);
+       
+       mainApp.controller('geocodingController', function($scope) {
+          $scope.location = {
+             	address: "Padova",
+             	lat: 0,
+				lon: 0,
+			geocode: function() {
+                dataProvider.requestJSON($scope.location.address);
+			 }
+          };
+       });
+	   
+    </script>
+  </body>
+</html>
